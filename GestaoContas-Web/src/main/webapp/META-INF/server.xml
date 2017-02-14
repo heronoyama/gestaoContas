@@ -1,0 +1,17 @@
+<GlobalNamingResources>
+    <Resource name="jdbc/GestaoDB"
+              auth="Container"
+              type="javax.sql.DataSource"
+              username="root"
+              password=""
+              url="jdbc:mysql://localhost/gestaocontas"
+              driverClassName="com.mysql.jdbc.Driver"
+              initialSize="20"
+              maxWaitMillis="15000"
+              maxTotal="75"
+              maxIdle="20"
+              maxAge="7200000"
+              testOnBorrow="true"
+              validationQuery="select 1"
+              />
+</GlobalNamingResources>

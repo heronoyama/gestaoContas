@@ -1,0 +1,54 @@
+<section id='MesesList'>
+
+	<div class="row">
+		<div class="col-md-12">
+			<h2> Meses de Cobrança</h2>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading"> Despesas cadastradas </div>
+				<div class="panel-body">
+					<div class="table-responsive">
+						<table class="table table-navigator table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th> Despesa </th>
+									<th> Reservado para outras informações</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- ko foreach: meses -->
+									<tr data-bind="click: navigateToMes">
+										<td> <span data-bind='text: dataFormatada'></span> </td>
+										<td> <input type='hidden' data-bind='value:id'/> </td>
+									</tr>
+								<!-- /ko -->
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+	<div class="col-md-6">
+		<form role="form" data-bind='submit: criaMes' method='post'>
+			<div class="form-group">
+				<label> Mês </label>
+		    	<input class="form-control" type='text' pattern="\d*" name='mes' data-bind='value: mes'/>
+		    </div>
+		    <div class="form-group">
+				<label> Ano </label>
+		    	<input class="form-control" type='text' pattern="\d*" name='ano' data-bind='value: ano'/>
+		    </div>
+		    <button class="btn btn-default" type='submit'> Criar </button>
+		</form>
+	</div>
+	</div>
+
+
+</section>

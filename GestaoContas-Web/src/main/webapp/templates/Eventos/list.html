@@ -1,0 +1,17 @@
+<section id='EventoList'>
+
+	<div class='eventos row' data-bind='foreach: eventos'>
+	    <div class='one column'>
+	        <input type='hidden' data-bind='value:id'/>
+	        <span data-bind='text: nome'></span>
+	    </div>
+	</div>
+	
+	<hr/>
+	
+	<form data-bind='submit: criaEvento' method='post'>
+	    <input type='text' name='nome' data-bind='value: nome'/>
+	    <button type='submit'> Criar </button>
+	</form>
+
+</section>

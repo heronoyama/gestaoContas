@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestão de contas</title>
+   
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/template.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+
+    <link rel="icon" type="image/png" href="favicon.ico">
+
+</head>
+<body>
+<div id="wrapper">
+
+    <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Gestão Contas</a> 
+            </div>
+       </nav> 
+
+    <header id='headerController'>
+
+    	<nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    <li>
+                    <!-- ko foreach: visiblePages -->
+            	   <a data-bind="text: $data.page, attr:{href:'#'+$data.page + '/' + $data.view}"></a>
+                    <!-- /ko -->
+                    </li>
+                </ul>
+            </div>
+    	</nav>
+    	
+    <h1 data-bind="text: currentPage.page"></h1>
+    </header>
+    <div id="page-wrapper">
+        <div id="content">
+            <!--div id='content'> </div-->
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" data-main="js/init.js" src="js/vendor/require.js"></script>
+
+</body>
+</html>
