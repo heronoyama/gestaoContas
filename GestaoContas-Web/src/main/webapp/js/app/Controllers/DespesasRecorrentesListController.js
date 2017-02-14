@@ -32,9 +32,8 @@ define(['knockout',
 				navigator.navigateTo('DespesasRecorrentes/view/'+despesa.id());
 			};
 			
-			Gateway.getDespesas(function(allData){
-				var mappedDespesas = $.map(allData, function(item) { return new DespesaRecorrente(item); });
-				self.despesas(mappedDespesas);
+			Gateway.getDespesasMapeadas(function(despesas){
+				self.despesas(despesas);
 			});
 
 			self.nome(null);

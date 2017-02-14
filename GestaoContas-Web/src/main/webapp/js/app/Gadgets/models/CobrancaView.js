@@ -10,12 +10,9 @@ define(['knockout','gateway','components/EstrategiaBuscaCobranca','models/Despes
 
 		
 		new EstrategiaBuscaCobranca(self.params).getStrategy()
-			.getCobrancas(
-					function(allData){
-					var mappedCobrancas = $.map(allData.cobrancas, self.mapCobranca);
-
+			.getCobrancas(function(allData){
 					self.total(allData.total);
-					self.cobrancas(mappedCobrancas);	
+					self.cobrancas(allData.cobrancas);
 				});
 
 		self.atualizaCobrancas = function(cobranca){

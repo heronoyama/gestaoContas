@@ -1,7 +1,14 @@
-define(['knockout'],function(ko){
+define(['knockout','components/Conversor'],function(ko,Conversor){
 	return {
 		getDespesas : function(callback){
 			$.getJSON('servicos/despesasRecorrentes', callback);
+		},
+
+		getDespesasMapeadas: function(callback){
+			$.getJSON('servicos/despesasRecorrentes', function(allData){
+				var despesas = Conversor.mapDespesas(allData);
+				callback(despesas);
+			});
 		},
 
 		getDespesa : function(id,callback){
@@ -20,6 +27,13 @@ define(['knockout'],function(ko){
 
 		getMeses : function(callback){
 					$.getJSON('servicos/mesesCobranca',callback);
+		},
+
+		getMesesMapeados : function(callback){
+				$.getJSON('servicos/mesesCobranca',function(allData){
+					var meses = Conversor.mapMesesCobranca(allData);
+					callback(meses);
+				});
 		},
 
 		getMesById : function(id,callback){
@@ -41,15 +55,45 @@ define(['knockout'],function(ko){
 		},
 
 		getCobrancasByDespesa : function(id,callback){
-			$.getJSON('servicos/relatorios/cobranca/despesas('+id+')',callback);
+			$.getJSON('servicos/relatorios/cobranca/despesas('+id+')',function(allData){
+				var cobrancas = Conversor.mapCobrancas(allData);
+				callback(cobrancas);
+			});
 		},
 
 		getCobrancasByMes : function(mesId,callback){
-			$.getJSON('servicos/relatorios/cobranca/'+mesId,callback);
+			$.getJSON('servicos/relatorios/cobranca/'+mesId,function(allData){
+				var cobrancas = Conversor.mapCobrancas(allData);
+				callback(cobrancas);
+			});
 		},
 
 		getCobrancasByMesEAno : function(mes,ano,callback){
 			$.getJSON('servicos/relatorios/cobranca/mesCobranca('+mes+','+ano+')',callback);
+		},
+
+		getCobrancasByMesInicioEFim : function(mesInicio,mesFim,callback){
+			$.getJSON('servicos/relatorios/cobranca/'+mesInicio+'/'+mesFim,
+				function(allData){
+				var cobrancas = Conversor.mapCobrancas(allData);
+				callback(cobrancas);
+			}); 
+		},
+
+		getCobrancasByDespesaMesInicioEFim : function(despesasIds,mesInicio,mesFim,callback){
+			$.getJSON('servicos/relatorios/cobranca/despesas('+despesasIds.join(',')+')/'+mesInicio+'/'+mesFim,
+				function(allData){
+				var cobrancas = Conversor.mapCobrancas(allData);
+				callback(cobrancas);
+			}); 
+		},
+
+		getCobrancasByDespesasComMes : function(despesasIds,idMes,callback){
+			$.getJSON('servicos/relatorios/cobranca/despesas('+despesasIds.join(',')+')/'+idMes,
+				function(allData){
+				var cobrancas = Conversor.mapCobrancas(allData);
+				callback(cobrancas);
+			}); 
 		},
 
 		geraCobranca: function(data,callback){

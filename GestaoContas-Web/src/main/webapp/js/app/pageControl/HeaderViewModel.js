@@ -3,13 +3,15 @@ define(['knockout','app/pageControl/ListPage','app/pageControl/StaticPage','app/
 	'controllers/DespesasRecorrentesListController',
 	'controllers/DespesasRecorrentesViewController',
 	'controllers/MesesCobrancaListController',
-	'controllers/MesCobrancaViewController'],
+	'controllers/MesCobrancaViewController',
+	'controllers/RelatorioController'],
 	function(ko,ListPage,StaticPage,ViewPage,
 	MainController,
 	DespesasRecorrentesListController,
 	DespesasRecorrentesViewController,
 	MesesCobrancaListController,
-	MesCobrancaViewController ){
+	MesCobrancaViewController,
+	RelatorioController ){
  return function HeaderViewModel(){
 	var self = this;
 
@@ -21,7 +23,8 @@ define(['knockout','app/pageControl/ListPage','app/pageControl/StaticPage','app/
 			  new ListPage ({page: 'DespesasRecorrentes', controller: DespesasRecorrentesListController, htmlSection:'DespesasList', view: 'list'}),
 			  new ViewPage ({page: 'DespesasRecorrentes', controller: DespesasRecorrentesViewController, htmlSection:'DespesaView', view: 'view'}),
 			  new ListPage ({page: 'MesesCobranca', controller: MesesCobrancaListController, htmlSection:'MesesList', view: 'list'}),
-		  	  new ViewPage ({page: 'MesesCobranca', controller: MesCobrancaViewController, htmlSection:'MesCobrancaView', view: 'view'})
+		  	  new ViewPage ({page: 'MesesCobranca', controller: MesCobrancaViewController, htmlSection:'MesCobrancaView', view: 'view'}),
+		  	  new ListPage ({page: 'Relatorios', controller: RelatorioController, htmlSection:'RelatorioView', view: 'view'})
 			]);
 
 	self.currentPage = ko.observable();

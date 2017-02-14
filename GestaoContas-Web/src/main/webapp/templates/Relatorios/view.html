@@ -1,0 +1,42 @@
+<section id="RelatorioView">
+	<h1> Olá, sou a página de relatórios </h1>
+
+	<ul data-bind="foreach: cobrancas">
+		<li data-bind="text: valor"></li>
+	</ul>
+
+	<div class="row">
+	<div class="col-md-6">
+	<form role="form" method='post' data-bind='submit: buscaCobrancas'>
+			<div class="form-group">
+				<label> Despesa Recorrente </label>
+				<select data-bind="options: despesasDisponiveis,
+				optionsText: 'nome', 
+				selectedOptions: despesasSelecionadas" 
+				multiple="true"></select>
+
+		    </div>
+			<div class="form-group">
+				<label> Mês Cobranca : inicio </label>
+		    	<select data-bind="options: mesesDisponiveis, 
+		    			optionsText: 'dataFormatada',
+		    			value: mesInicio,
+		    			optionsCaption: 'Escolha o mês'"
+		    			/>
+		    </div>
+
+		    <div class="form-group">
+				<label> Mês Cobranca : fim </label>
+		    	<select data-bind="options: mesesDisponiveis, 
+		    			optionsText: 'dataFormatada',
+		    			value: mesFim,
+		    			optionsCaption: 'Escolha o mês'"
+		    			/>
+		    </div>
+		    
+		    <button class="btn btn-default" type='submit'> Buscar </button>
+		</form>
+</div>
+</div>
+
+</section>

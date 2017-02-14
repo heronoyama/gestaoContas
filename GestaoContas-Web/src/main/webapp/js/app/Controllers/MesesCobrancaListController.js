@@ -25,9 +25,8 @@ define(['knockout','navigator','gateway','controllers/ListController','models/Me
 				navigator.navigateTo('MesesCobranca/view/'+mes.id());
 			};
 
-			Gateway.getMeses(function(allData){
-					var mappedMeses = $.map(allData, function(item) { return new MesCobranca(item); });
-					self.meses(mappedMeses);
+			Gateway.getMesesMapeados(function(meses){
+					self.meses(meses);
 				});
 			self.mes(null);
 			self.ano(null);

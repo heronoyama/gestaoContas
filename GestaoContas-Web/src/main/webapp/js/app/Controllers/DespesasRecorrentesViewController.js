@@ -20,7 +20,7 @@ define(['knockout','gateway','models/DespesasRecorrentesModel','models/MesCobran
 						mes: self.mesSelecionado().mes(),
 						ano: self.mesSelecionado().ano(),
 						valor: parseFloat(self.valor()),
-						id_despesa: self.despesaId()
+						id_despesa: parseInt(self.despesaId())
 					};
 					Gateway.geraCobranca(data, function(result) {
 						self.despesaController().atualizaCobrancas(result);

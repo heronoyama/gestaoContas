@@ -61,7 +61,7 @@ public class RelatorioCobrancaResource {
 	@Path("/{mes_inicio}/{mes_fim}")
 	public Response getRelatorio(@PathParam("mes_inicio") long idMesInicio, @PathParam("mes_fim") long idMesFim) throws JsonGenerationException, JsonMappingException, IOException{
 		RelatorioCobrancaParametro parametro = new RelatorioCobrancaParametro();
-		parametro.id_mes_fim = idMesInicio;
+		parametro.id_mes_inicio = idMesInicio;
 		parametro.id_mes_fim = idMesFim;
 		
 		return Response.ok(controller.getRelatorioJson(parametro)).build();
