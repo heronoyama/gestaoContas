@@ -47,5 +47,5 @@ public class MesCobrancaFinderSqlBuilderTest extends BDTest{
 		MesCobrancaFinderSqlBuilder builder = new MesCobrancaFinderSqlBuilder(mes1,mes3);
 		assertEquals("(mes in (3,4,5,6,7,8,9,10,11,12) and ano = 2016) or (ano in (2017,2018)) or (mes in (1,2,3,4,5) and ano = 2019)",builder.getSQL());
 	}
-
+	
 }

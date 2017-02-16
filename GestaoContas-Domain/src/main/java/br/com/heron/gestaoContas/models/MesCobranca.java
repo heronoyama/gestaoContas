@@ -1,5 +1,6 @@
 package br.com.heron.gestaoContas.models;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.javalite.activejdbc.annotations.Table;
@@ -7,7 +8,7 @@ import org.javalite.activejdbc.annotations.Table;
 import br.com.heron.gestaoContas.finders.MesCobrancaFinderSqlBuilder;
 
 @Table("meses_cobranca")
-public class MesCobranca extends GestaoContasModel{
+public class MesCobranca extends GestaoContasModel implements Comparable<MesCobranca>{
 
 	public MesCobranca (){}
 	
@@ -19,9 +20,34 @@ public class MesCobranca extends GestaoContasModel{
 	public static List<MesCobranca> meses(MesCobranca from, MesCobranca to){
 		MesCobrancaFinderSqlBuilder builder = new MesCobrancaFinderSqlBuilder(from, to);
 		
-		return MesCobranca.find(builder.getSQL());
+		List<MesCobranca> meses = MesCobranca.find(builder.getSQL());
+		Collections.sort(meses);
+		return meses;
 	}
 	
+	public static List<MesCobranca> mesesAte(MesCobranca mesAte) {
+		MesCobranca primeiroMes = primeiroMes();
+		
+		return meses(primeiroMes,mesAte);
+	}
+
+	static MesCobranca primeiroMes() {
+		List<MesCobranca> meses = MesCobranca.findBySQL("select * from meses_cobranca order by convert(concat(ano,'-',mes,'-1'),DATE) limit 1");
+		assert meses.size() == 1;
+		return meses.get(0);
+	}
+	
+	static MesCobranca ultimoMes(){
+		List<MesCobranca> meses = MesCobranca.findBySQL("select * from meses_cobranca order by convert(concat(ano,'-',mes,'-1'),DATE) DESC limit 1");
+		assert meses.size() == 1;
+		return meses.get(0);
+	}
+	
+	public static List<MesCobranca> mesesAPartirDe(MesCobranca mesInicial) {
+		MesCobranca ultimoMes = ultimoMes();
+		return meses(mesInicial,ultimoMes);
+	}
+
 	@Override
 	public String toString() {
 		return String.format("%d/%d", getInteger("mes"),getInteger("ano"));
@@ -48,5 +74,15 @@ public class MesCobranca extends GestaoContasModel{
 	public boolean equals(MesCobranca other) {
 		return this.mes().equals(other.mes()) && this.ano().equals(other.ano());
 	}
+
+	@Override
+	public int compareTo(MesCobranca o) {
+		if(ano().equals(o.ano()))
+			return mes().compareTo(o.mes());
+		return (ano() > o.ano())? 1 : -1;
+			
+	}
+
+	
 	
 }

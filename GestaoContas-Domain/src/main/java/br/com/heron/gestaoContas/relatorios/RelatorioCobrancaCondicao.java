@@ -35,8 +35,27 @@ public class RelatorioCobrancaCondicao {
 			conditions.add(String.format("despesa_id in (%s)",Joiner.on(",").join(ids)));
 		}
 	
-		if(mesInicial != null)
+		if(possuiAmbosOsMeses())
 			conditions.add(conditionMes());
+
+		if(somenteMesInicio())
+			conditions.add(conditionAPartirDeMes());
+		
+		if(somenteMesFinal())
+			conditions.add(conditionAteMes());
+		
+	}
+
+	private boolean somenteMesFinal() {
+		return mesInicial == null && mesFinal != null;
+	}
+
+	private boolean somenteMesInicio() {
+		return mesInicial != null && mesFinal == null;
+	}
+
+	private boolean possuiAmbosOsMeses() {
+		return mesInicial != null && mesFinal != null;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -54,10 +73,24 @@ public class RelatorioCobrancaCondicao {
 			return "mes_id = "+mesInicial.getLongId().toString();
 		
 		List<MesCobranca> meses = MesCobranca.meses(mesInicial, mesFinal);
+		return getIds(meses);
+	}
+	
+	private String getIds(List<MesCobranca> meses){
 		List<String> ids = new MesCobrancaIdCollector().collect(meses);
 		return String.format("mes_id in (%s)", Joiner.on(",").join(ids));
 	}
+	
+	private String conditionAteMes() {
+		List<MesCobranca> meses = MesCobranca.mesesAte(mesFinal);
+		return getIds(meses);
+	}
 
+	private String conditionAPartirDeMes() {
+		List<MesCobranca> meses = MesCobranca.mesesAPartirDe(mesInicial);
+		return getIds(meses);
+	}
+	
 	private static class DespesaRecorrenteIdGetter implements Function<DespesaRecorrente, String> {
 		@Override
 		public String apply(DespesaRecorrente t) {

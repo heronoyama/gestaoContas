@@ -40,14 +40,12 @@ public class RelatorioCobrancaCondicaoBuilder {
 	}
 	
 	public RelatorioCobrancaCondicao build(){
-		if(mesInicial != null && mesFinal == null)
-			mesFinal = mesInicial;
 		validate();
 		return new RelatorioCobrancaCondicao(mesInicial,mesFinal,despesas);
 	}
 	
 	private void validate(){
-		if(this.mesInicial == null && this.mesFinal == null)
+		if(this.mesInicial == null || this.mesFinal == null)
 			return;
 		if(this.mesInicial.equals(this.mesFinal))
 			return;

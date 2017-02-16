@@ -148,5 +148,77 @@ public class RelatorioCobrancaCondicaoTest extends BDTest{
 		
 		assertEquals("{\"despesa_recorrente\":{\"dia_de_cobranca\":1,\"id\":1,\"nome\":\"Teste\"},\"id\":2,\"mes_cobranca\":{\"ano\":2016,\"id\":2,\"mes\":4},\"valor\":9.0}",cobranca.toJsonMaped());
 	}
+	
+	@Test
+	public void getCobrancas_duasDespesas_buscaPeloMesFim(){
+		DespesaRecorrente despesa1 = new DespesaRecorrente("Teste",1);
+		despesa1.saveIt();
+		MesCobranca mes1 = new MesCobranca(3,2016);
+		mes1.saveIt();
+		
+		MesCobranca mes2 = new MesCobranca(4,2016);
+		mes2.saveIt();
+		
+		MesCobranca mes3 = new MesCobranca(5,2016);
+		mes3.saveIt();
+		
+		DespesaRecorrente despesaExtra = new DespesaRecorrente("Extra",1);
+		despesaExtra.saveIt();
+		
+		despesa1.geraCobranca(mes1, 21.00);
+		despesa1.geraCobranca(mes2, 9.00);
+		despesaExtra.geraCobranca(mes1, 10.00);
+		despesaExtra.geraCobranca(mes2, 100.00);
+		despesa1.geraCobranca(mes3, 13.00);
+		
+		RelatorioCobrancaCondicaoBuilder builder = new RelatorioCobrancaCondicaoBuilder().addDespesa(despesa1).setMesFinal(mes2);
+		List<Cobranca> cobrancas = builder.build().getCobrancas();
+		assertEquals(2,cobrancas.size());
+		Cobranca cobranca = cobrancas.get(0);
+		assertEquals("Teste : Todo dia 1 - 3/2016 R$21.00",cobranca.toString());
+		
+		assertEquals("{\"despesa_recorrente\":{\"dia_de_cobranca\":1,\"id\":1,\"nome\":\"Teste\"},\"id\":1,\"mes_cobranca\":{\"ano\":2016,\"id\":1,\"mes\":3},\"valor\":21.0}",cobranca.toJsonMaped());
+		
+		cobranca = cobrancas.get(1);
+		assertEquals("Teste : Todo dia 1 - 4/2016 R$9.00",cobranca.toString());
+		
+		assertEquals("{\"despesa_recorrente\":{\"dia_de_cobranca\":1,\"id\":1,\"nome\":\"Teste\"},\"id\":2,\"mes_cobranca\":{\"ano\":2016,\"id\":2,\"mes\":4},\"valor\":9.0}",cobranca.toJsonMaped());
+	}
+	
+	@Test
+	public void getCobrancas_duasDespesas_buscaPeloMesInicio(){
+		DespesaRecorrente despesa1 = new DespesaRecorrente("Teste",1);
+		despesa1.saveIt();
+		MesCobranca mes1 = new MesCobranca(3,2016);
+		mes1.saveIt();
+		
+		MesCobranca mes2 = new MesCobranca(4,2016);
+		mes2.saveIt();
+		
+		MesCobranca mes3 = new MesCobranca(5,2016);
+		mes3.saveIt();
+		
+		DespesaRecorrente despesaExtra = new DespesaRecorrente("Extra",1);
+		despesaExtra.saveIt();
+		
+		despesa1.geraCobranca(mes1, 21.00);
+		despesa1.geraCobranca(mes2, 9.00);
+		despesaExtra.geraCobranca(mes1, 10.00);
+		despesaExtra.geraCobranca(mes2, 100.00);
+		despesa1.geraCobranca(mes3, 13.00);
+		
+		RelatorioCobrancaCondicaoBuilder builder = new RelatorioCobrancaCondicaoBuilder().addDespesa(despesa1).setMesInicial(mes2);
+		List<Cobranca> cobrancas = builder.build().getCobrancas();
+		assertEquals(2,cobrancas.size());
+		Cobranca cobranca = cobrancas.get(0);
+		assertEquals("Teste : Todo dia 1 - 4/2016 R$9.00",cobranca.toString());
+		
+		assertEquals("{\"despesa_recorrente\":{\"dia_de_cobranca\":1,\"id\":1,\"nome\":\"Teste\"},\"id\":2,\"mes_cobranca\":{\"ano\":2016,\"id\":2,\"mes\":4},\"valor\":9.0}",cobranca.toJsonMaped());
+		
+		cobranca = cobrancas.get(1);
+		assertEquals("Teste : Todo dia 1 - 5/2016 R$13.00",cobranca.toString());
+		
+		assertEquals("{\"despesa_recorrente\":{\"dia_de_cobranca\":1,\"id\":1,\"nome\":\"Teste\"},\"id\":5,\"mes_cobranca\":{\"ano\":2016,\"id\":3,\"mes\":5},\"valor\":13.0}",cobranca.toJsonMaped());
+	}
 
 }

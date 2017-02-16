@@ -90,5 +90,102 @@ public class MesCobrancaBDTest extends BDTest{
 		assertEquals("5/2017",meses.get(2).toString());
 		assertEquals("5/2018",meses.get(3).toString());
 	}
+	
+	@Test
+	public void primeiroMes(){
+		MesCobranca mes1 = new MesCobranca(3,2016);
+		mes1.saveIt();
+		
+		MesCobranca mes2 = new MesCobranca(4,2017);
+		mes2.saveIt();
+		
+		MesCobranca mesNoMeio = new MesCobranca(5,2017);
+		mesNoMeio.saveIt();
+		
+		MesCobranca primeiroMes = new MesCobranca(6,2015);
+		primeiroMes.saveIt();
+		
+		MesCobranca mes3 = new MesCobranca(5,2018);
+		mes3.saveIt();
+	
+		MesCobranca mesBuscado = MesCobranca.primeiroMes();
+		
+		assertEquals("6/2015",mesBuscado.toString());
+	}
+	
+	@Test
+	public void ateOMes(){
+		MesCobranca primeiroMes = new MesCobranca(6,2015);
+		primeiroMes.saveIt();
+		
+		MesCobranca mes1 = new MesCobranca(3,2016);
+		mes1.saveIt();
+		
+		MesCobranca mes2 = new MesCobranca(4,2017);
+		mes2.saveIt();
+		
+		MesCobranca mesNoMeio = new MesCobranca(5,2017);
+		mesNoMeio.saveIt();
+		
+		MesCobranca mes3 = new MesCobranca(5,2018);
+		mes3.saveIt();
+		
+		List<MesCobranca> meses = MesCobranca.mesesAte(mesNoMeio);
+		
+		assertEquals(4,meses.size());
+		assertEquals("6/2015",meses.get(0).toString());
+		assertEquals("3/2016",meses.get(1).toString());
+		assertEquals("4/2017",meses.get(2).toString());
+		assertEquals("5/2017",meses.get(3).toString());
+	}
+	
+	@Test
+	public void aPartirDoMes(){
+		MesCobranca primeiroMes = new MesCobranca(6,2015);
+		primeiroMes.saveIt();
+		
+		MesCobranca mes1 = new MesCobranca(3,2016);
+		mes1.saveIt();
+		
+		MesCobranca mes2 = new MesCobranca(4,2017);
+		mes2.saveIt();
+		
+		MesCobranca mesNoMeio = new MesCobranca(5,2017);
+		mesNoMeio.saveIt();
+		
+		MesCobranca mes3 = new MesCobranca(5,2018);
+		mes3.saveIt();
+		
+		List<MesCobranca> meses = MesCobranca.mesesAPartirDe(mes2);
+		
+		assertEquals(3,meses.size());
+		assertEquals("4/2017",meses.get(0).toString());
+		assertEquals("5/2017",meses.get(1).toString());
+		assertEquals("5/2018",meses.get(2).toString());
+	}
+	
+	@Test
+	public void compareTo(){
+		MesCobranca mes1 = new MesCobranca(3,2016);
+		mes1.saveIt();
+		
+		MesCobranca mes2 = new MesCobranca(4,2016);
+		mes2.saveIt();
+		
+		MesCobranca mes3 = new MesCobranca(4,2017);
+		mes3.saveIt();
+		
+		MesCobranca mes4 = new MesCobranca(4,2018);
+		mes4.saveIt();
+		
+		assertEquals(0,mes1.compareTo(mes1));
+		assertEquals(1, mes2.compareTo(mes1));
+		assertEquals(-1,mes1.compareTo(mes2));
+		
+		assertEquals(-1,mes2.compareTo(mes3));
+		assertEquals(-1,mes3.compareTo(mes4));
+		assertEquals(1,mes4.compareTo(mes3));
+		
+	}
 
 }
