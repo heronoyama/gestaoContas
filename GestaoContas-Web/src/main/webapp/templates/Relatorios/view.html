@@ -1,9 +1,8 @@
 <section id="RelatorioView">
 	<h1> Olá, sou a página de relatórios </h1>
 
-	<ul data-bind="foreach: cobrancas">
-		<li data-bind="text: valor"></li>
-	</ul>
+	<div data-bind="component: {name : 'cobranca-table', params: {title : 'Relatório de cobranças', total: total, cobrancas:cobrancas}}">
+</div>
 
 	<div class="row">
 	<div class="col-md-6">

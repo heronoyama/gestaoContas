@@ -69,7 +69,10 @@ define(['knockout','components/Conversor'],function(ko,Conversor){
 		},
 
 		getCobrancasByMesEAno : function(mes,ano,callback){
-			$.getJSON('servicos/relatorios/cobranca/mesCobranca('+mes+','+ano+')',callback);
+			$.getJSON('servicos/relatorios/cobranca/mesCobranca('+mes+','+ano+')',function(allData){
+				var cobrancas = Conversor.mapCobrancas(allData);
+				callback(cobrancas);
+			});
 		},
 
 		getCobrancasByMesInicioEFim : function(mesInicio,mesFim,callback){

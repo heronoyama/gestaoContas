@@ -1,5 +1,5 @@
-define(['knockout','gateway','components/EstrategiaBuscaCobranca','models/DespesasRecorrentesModel','models/MesCobrancaModel','models/Cobranca'],
-	function(ko,Gateway,EstrategiaBuscaCobranca,DespesaRecorrente,MesCobranca,Cobranca){ 
+define(['knockout','gateway','components/Conversor','components/EstrategiaBuscaCobranca','models/DespesasRecorrentesModel','models/MesCobrancaModel','models/Cobranca'],
+	function(ko,Gateway,Conversor,EstrategiaBuscaCobranca,DespesaRecorrente,MesCobranca,Cobranca){ 
 	return function CobrancaView(params){
 		var self = this;
 
@@ -16,7 +16,7 @@ define(['knockout','gateway','components/EstrategiaBuscaCobranca','models/Despes
 				});
 
 		self.atualizaCobrancas = function(cobranca){
-					var mappedCobranca = self.mapCobranca(cobranca);
+					var mappedCobranca = Conversor.mapCobranca(cobranca);
 					var cobrancas = self.cobrancas();
 					ko.utils.arrayPushAll(cobrancas,[mappedCobranca]);
 					self.cobrancas.valueHasMutated();
@@ -25,17 +25,6 @@ define(['knockout','gateway','components/EstrategiaBuscaCobranca','models/Despes
 					valorTotal += cobranca.valor;
 					self.total(valorTotal);
 		};
-
-		self.mapCobranca = function(data){
-					var mesCobranca = new MesCobranca(data.mes_cobranca);
-					var despesaRecorrente = new DespesaRecorrente(data.despesa_recorrente);
-						var item = {};
-						item.mes = mesCobranca;
-						item.despesa = despesaRecorrente;
-						item.id = data.id;
-						item.valor = data.valor;
-						return new Cobranca(item); 
-					};
 
 	};
 });

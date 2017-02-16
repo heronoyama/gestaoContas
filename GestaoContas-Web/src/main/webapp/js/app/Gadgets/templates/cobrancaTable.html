@@ -1,0 +1,48 @@
+<section id='CobrancaView'>
+
+<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading"><p data-bind="text: title"> </p> </div>
+				<div class="panel-body">
+					<div class="table-responsive">
+						<table class="table table-navigator table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th> Despesa </th>
+									<th> Mês de Cobrança </th>
+									<th> Valor no mês</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- ko foreach: cobrancas -->
+								<tr>
+									<!-- ko with:despesa -->
+									<td>
+										<span data-bind='text: nome'></span> 
+									</td>
+									<!-- /ko -->
+									<!-- ko with:mes -->
+									<td>
+										<span data-bind='text: dataFormatada'></span> 
+									</td>
+									<!-- /ko -->
+									<td> R$<span data-bind="text: valorFormatado"></span> </td>
+								</tr>
+								<!-- /ko -->
+
+							</tbody>
+						</table>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="dataTables_info">
+									<p>Total : R$<span data-bind="text: total"></span></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

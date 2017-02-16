@@ -6,6 +6,11 @@ require(['knockout','sammy','app/pageControl/HeaderViewModel'],
 	    template: {require: 'text!gadgets/templates/cobrancaView.html'}
 	});
 
+	ko.components.register('cobranca-table', {
+	    viewModel: {require: 'gadgets/models/CobrancaTable'},
+	    template: {require: 'text!gadgets/templates/cobrancaTable.html'}
+	});
+
 	var headerModel  = new HeaderViewModel();
 	ko.applyBindings(headerModel,getElement('headerController'));
 
