@@ -1,11 +1,6 @@
 require(['knockout','sammy','app/pageControl/HeaderViewModel'], 
 	function(ko, Sammy,HeaderViewModel) {
 
-	ko.components.register('cobranca-view', {
-	    viewModel: {require: 'gadgets/models/CobrancaView'},
-	    template: {require: 'text!gadgets/templates/cobrancaView.html'}
-	});
-
 	ko.components.register('cobranca-table', {
 	    viewModel: {require: 'gadgets/models/CobrancaTable'},
 	    template: {require: 'text!gadgets/templates/cobrancaTable.html'}
