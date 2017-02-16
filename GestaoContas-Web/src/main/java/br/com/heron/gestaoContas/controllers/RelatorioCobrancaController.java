@@ -24,14 +24,24 @@ public class RelatorioCobrancaController {
 	
 
 	public String getRelatorioJson(RelatorioCobrancaParametro parametro) throws JsonGenerationException, JsonMappingException, IOException {
+		RelatorioCobranca relatorio = getRelatorio(parametro);
+		
+		return relatorio.getJson();
+	}
+	
+	public String getRelatorioCSV(RelatorioCobrancaParametro parametro){
+		RelatorioCobranca relatorio = getRelatorio(parametro);
+		return relatorio.getCSV();
+	}
+
+	private RelatorioCobranca getRelatorio(RelatorioCobrancaParametro parametro) {
 		RelatorioCobrancaCondicaoBuilder builder = new RelatorioCobrancaCondicaoBuilder();
 		
 		buildDespesas(parametro.ids_despesas,builder);
 		buildMeses(parametro.id_mes_inicio,parametro.id_mes_fim,builder);
 		
 		RelatorioCobranca relatorio = new RelatorioCobranca(builder.build());
-		
-		return relatorio.getJson();
+		return relatorio;
 	}
 
 	private void buildMeses(Long id_mes_inicio, Long id_mes_fim, RelatorioCobrancaCondicaoBuilder builder) {

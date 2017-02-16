@@ -48,6 +48,14 @@ public class Cobranca extends GestaoContasModel {
 		return getDouble("valor");
 	}
 	
+	public DespesaRecorrente despesa(){
+		return parent(DespesaRecorrente.class);
+	}
+	
+	public MesCobranca mesCobranca(){
+		return parent(MesCobranca.class);
+	}
+	
 	public String toJsonMaped(){
 		Map<String,Object> map = super.toMap();
 		map.remove("despesa_id");
@@ -58,6 +66,11 @@ public class Cobranca extends GestaoContasModel {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} 
+	}
+
+	public String valorAsString() {
+		
+		return String.format(Locale.US,"%.2f", valor());
 	}
 
 }

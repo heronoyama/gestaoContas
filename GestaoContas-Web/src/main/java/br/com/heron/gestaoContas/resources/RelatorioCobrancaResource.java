@@ -43,8 +43,12 @@ public class RelatorioCobrancaResource {
 		parametro.id_mes_fim = idMesFim;
 		parametro.setIds(ids);
 		
-		return Response.ok(controller.getRelatorioJson(parametro)).build();
+		return buildResponse(parametro);
 		
+	}
+
+	protected Response buildResponse(RelatorioCobrancaParametro parametro) throws JsonGenerationException, JsonMappingException, IOException {
+		return Response.ok(controller.getRelatorioJson(parametro)).build();
 	}
 	
 	@GET
@@ -53,7 +57,7 @@ public class RelatorioCobrancaResource {
 		RelatorioCobrancaParametro parametro = new RelatorioCobrancaParametro();
 		parametro.setIds(ids);
 		
-		return Response.ok(controller.getRelatorioJson(parametro)).build();
+		return buildResponse(parametro);
 		
 	}
 	
@@ -64,7 +68,7 @@ public class RelatorioCobrancaResource {
 		parametro.id_mes_inicio = idMesInicio;
 		parametro.id_mes_fim = idMesFim;
 		
-		return Response.ok(controller.getRelatorioJson(parametro)).build();
+		return buildResponse(parametro);
 	}
 	
 	@GET
@@ -75,7 +79,7 @@ public class RelatorioCobrancaResource {
 		parametro.id_mes_inicio = idMes;
 		parametro.id_mes_fim = idMes;
 		
-		return Response.ok(controller.getRelatorioJson(parametro)).build();
+		return buildResponse(parametro);
 	}
 	
 	@GET
@@ -85,7 +89,7 @@ public class RelatorioCobrancaResource {
 		parametro.id_mes_inicio = idMes;
 		parametro.id_mes_fim = idMes;
 		
-		return Response.ok(controller.getRelatorioJson(parametro)).build();
+		return buildResponse(parametro);
 	}
 	
 	@GET
@@ -95,7 +99,7 @@ public class RelatorioCobrancaResource {
 		parametro.setIds(ids);
 		parametro.id_mes_inicio = idMesFrom;
 		
-		return Response.ok(controller.getRelatorioJson(parametro)).build();
+		return buildResponse(parametro);
 	}
 	
 	@GET
@@ -105,7 +109,7 @@ public class RelatorioCobrancaResource {
 		parametro.setIds(ids);
 		parametro.id_mes_fim = idMesTo;
 		
-		return Response.ok(controller.getRelatorioJson(parametro)).build();
+		return buildResponse(parametro);
 	}
 	
 	@GET
@@ -114,7 +118,7 @@ public class RelatorioCobrancaResource {
 		RelatorioCobrancaParametro parametro = new RelatorioCobrancaParametro();
 		parametro.id_mes_inicio = idMesFrom;
 		
-		return Response.ok(controller.getRelatorioJson(parametro)).build();
+		return buildResponse(parametro);
 	}
 	
 	@GET
@@ -123,7 +127,7 @@ public class RelatorioCobrancaResource {
 		RelatorioCobrancaParametro parametro = new RelatorioCobrancaParametro();
 		parametro.id_mes_fim = idMesTo;
 		
-		return Response.ok(controller.getRelatorioJson(parametro)).build();
+		return buildResponse(parametro);
 	}
 	
 	@GET
@@ -137,7 +141,7 @@ public class RelatorioCobrancaResource {
 		Long mesId = mesCobranca.getLongId();
 		parametro.id_mes_inicio = mesId;
 		parametro.id_mes_fim = mesId;
-		return Response.ok(controller.getRelatorioJson(parametro)).build();
+		return buildResponse(parametro);
 	}
 	
 }

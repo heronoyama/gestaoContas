@@ -17,6 +17,8 @@ public class RelatorioCobrancaTest extends BDTest{
 	
 	private DespesaRecorrente despesa;
 	private MesCobranca mes;
+	
+	private String lineSeparator = System.lineSeparator();
 
 	@Before
 	public void setupEnvironment(){
@@ -67,6 +69,42 @@ public class RelatorioCobrancaTest extends BDTest{
 				+ "{\"despesa_recorrente\":{\"dia_de_cobranca\":1,\"id\":1,\"nome\":\"teste\"},\"id\":2,\"mes_cobranca\":{\"ano\":2016,\"id\":2,\"mes\":4},\"valor\":9.0}],"
 				+ "\"total\":30.0}";
 		assertEquals(expectedJson,jsonRelatorio);
+	}
+	
+	@Test
+	public void getCSV_umaCobranca(){
+		despesa.geraCobranca(mes, 21.00);
+		
+		RelatorioCobrancaCondicao condicao = new RelatorioCobrancaCondicaoBuilder().addDespesa(despesa).build();
+		
+		RelatorioCobranca relatorio = new RelatorioCobranca(condicao);
+		String csv = relatorio.getCSV();
+		
+		String expected =
+				"Cobrança;Mês;Valor"+lineSeparator+
+				"teste;3/2016;21.00"+lineSeparator;
+		
+		assertEquals(expected,csv);		
+	}
+	
+	@Test
+	public void getCSV_duasCobranca(){
+		despesa.geraCobranca(mes, 21.00);
+		MesCobranca mes2 = new MesCobranca(4,2016);
+		mes2.saveIt();
+		despesa.geraCobranca(mes2, 15.00);
+		
+		RelatorioCobrancaCondicao condicao = new RelatorioCobrancaCondicaoBuilder().addDespesa(despesa).build();
+		
+		RelatorioCobranca relatorio = new RelatorioCobranca(condicao);
+		String csv = relatorio.getCSV();
+		
+		String expected =
+				"Cobrança;Mês;Valor"+lineSeparator+
+				"teste;3/2016;21.00"+lineSeparator+
+				"teste;4/2016;15.00"+lineSeparator;
+		
+		assertEquals(expected,csv);		
 	}
 
 }

@@ -47,6 +47,17 @@ public class RelatorioCobranca {
 		
 		return mapper.writeValueAsString(outerMap);
 	}
+	
+	public String getCSV(){
+		StringBuilder builder = new StringBuilder();
+		builder.append("Cobrança;Mês;Valor"+System.lineSeparator());
+		
+		for (Cobranca cobranca : cobrancas) {
+			builder.append(cobranca.despesa().nome()+";"+cobranca.mesCobranca()+";"+cobranca.valorAsString()+System.lineSeparator());
+		}
+		
+		return builder.toString();
+	};
 
 	private List<Map<String, Object>> getCobrancasMap() {
 		List<Map<String,Object>> cobrancasMap = new ArrayList<>();

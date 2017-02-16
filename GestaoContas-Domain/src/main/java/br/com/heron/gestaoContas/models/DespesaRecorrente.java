@@ -16,6 +16,10 @@ public class DespesaRecorrente extends GestaoContasModel{
 	public String toString() {
 		return String.format("%s : Todo dia %d", getString("nome"),getInteger("dia_de_cobranca"));
 	}
+	
+	public String nome(){
+		return getString("nome");
+	}
 
 	public Cobranca geraCobranca(MesCobranca mesCobranca, double valor) {
 		Cobranca cobranca = new Cobranca(valor);
