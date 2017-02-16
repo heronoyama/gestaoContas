@@ -35,14 +35,11 @@ public class RelatorioCobrancaController {
 	}
 
 	private void buildMeses(Long id_mes_inicio, Long id_mes_fim, RelatorioCobrancaCondicaoBuilder builder) {
-		if(id_mes_inicio == null)
-			return;
-		if(id_mes_fim == null){
-			builder.setMes(mesController.findById(id_mes_inicio));
-			return;
-		}
-		builder.setMesInicial(mesController.findById(id_mes_inicio));
-		builder.setMesFinal(mesController.findById(id_mes_fim));
+		if(id_mes_inicio != null)
+			builder.setMesInicial(mesController.findById(id_mes_inicio));
+		
+		if(id_mes_fim != null)
+			builder.setMesFinal(mesController.findById(id_mes_fim));
 	}
 
 	private void buildDespesas(List<Long> ids_despesas, RelatorioCobrancaCondicaoBuilder builder) {
