@@ -17,5 +17,9 @@ define(['knockout'],function(ko){
 			return self.mes() < outroMes.mes();
 		};
 
+		self.equals = function(outroMes){
+			return self.ano() == outroMes.ano() && self.mes() == outroMes.mes();
+		};
+
 	}
 });

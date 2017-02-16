@@ -62,7 +62,7 @@ define(['knockout','components/Conversor'],function(ko,Conversor){
 		},
 
 		getCobrancasByMes : function(mesId,callback){
-			$.getJSON('servicos/relatorios/cobranca/'+mesId,function(allData){
+			$.getJSON('servicos/relatorios/cobranca/of('+mesId+')',function(allData){
 				var cobrancas = Conversor.mapCobrancas(allData);
 				callback(cobrancas);
 			});
@@ -76,7 +76,23 @@ define(['knockout','components/Conversor'],function(ko,Conversor){
 		},
 
 		getCobrancasByMesInicioEFim : function(mesInicio,mesFim,callback){
-			$.getJSON('servicos/relatorios/cobranca/'+mesInicio+'/'+mesFim,
+			$.getJSON('servicos/relatorios/cobranca/from('+mesInicio+')/to('+mesFim+')',
+				function(allData){
+				var cobrancas = Conversor.mapCobrancas(allData);
+				callback(cobrancas);
+			}); 
+		},
+
+		getCobrancasByMesFrom: function(mesInicio,callback){
+			$.getJSON('servicos/relatorios/cobranca/from('+mesInicio+')',
+				function(allData){
+				var cobrancas = Conversor.mapCobrancas(allData);
+				callback(cobrancas);
+			}); 
+		},
+
+		getCobrancasByMesTo: function(mesFim,callback){
+			$.getJSON('servicos/relatorios/cobranca/to('+mesFim+')',
 				function(allData){
 				var cobrancas = Conversor.mapCobrancas(allData);
 				callback(cobrancas);
@@ -84,7 +100,7 @@ define(['knockout','components/Conversor'],function(ko,Conversor){
 		},
 
 		getCobrancasByDespesaMesInicioEFim : function(despesasIds,mesInicio,mesFim,callback){
-			$.getJSON('servicos/relatorios/cobranca/despesas('+despesasIds.join(',')+')/'+mesInicio+'/'+mesFim,
+			$.getJSON('servicos/relatorios/cobranca/despesas('+despesasIds.join(',')+')/from('+mesInicio+')/to('+mesFim+')',
 				function(allData){
 				var cobrancas = Conversor.mapCobrancas(allData);
 				callback(cobrancas);
@@ -92,7 +108,23 @@ define(['knockout','components/Conversor'],function(ko,Conversor){
 		},
 
 		getCobrancasByDespesasComMes : function(despesasIds,idMes,callback){
-			$.getJSON('servicos/relatorios/cobranca/despesas('+despesasIds.join(',')+')/'+idMes,
+			$.getJSON('servicos/relatorios/cobranca/despesas('+despesasIds.join(',')+')/of('+idMes+')',
+				function(allData){
+				var cobrancas = Conversor.mapCobrancas(allData);
+				callback(cobrancas);
+			}); 
+		},
+
+		getCobrancasByDespesasComMesFrom : function(despesasIds,idMes,callback){
+			$.getJSON('servicos/relatorios/cobranca/despesas('+despesasIds.join(',')+')/from('+idMes+')',
+				function(allData){
+				var cobrancas = Conversor.mapCobrancas(allData);
+				callback(cobrancas);
+			}); 
+		},
+
+		getCobrancasByDespesasComMesTo: function(despesasIds,idMes,callback){
+			$.getJSON('servicos/relatorios/cobranca/despesas('+despesasIds.join(',')+')/to('+idMes+')',
 				function(allData){
 				var cobrancas = Conversor.mapCobrancas(allData);
 				callback(cobrancas);

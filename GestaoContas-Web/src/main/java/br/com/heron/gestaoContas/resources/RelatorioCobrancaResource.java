@@ -90,7 +90,7 @@ public class RelatorioCobrancaResource {
 	
 	@GET
 	@Path("/despesas{ids_despesas}/from({id_mes})")
-	public Response cobrancasDespesasFrom(@PathParam("ids_despesa") String ids, @PathParam("id_mes")long idMesFrom) throws JsonGenerationException, JsonMappingException, IOException{
+	public Response cobrancasDespesasFrom(@PathParam("ids_despesas") String ids, @PathParam("id_mes")long idMesFrom) throws JsonGenerationException, JsonMappingException, IOException{
 		RelatorioCobrancaParametro parametro = new RelatorioCobrancaParametro();
 		parametro.setIds(ids);
 		parametro.id_mes_inicio = idMesFrom;
@@ -100,7 +100,7 @@ public class RelatorioCobrancaResource {
 	
 	@GET
 	@Path("/despesas{ids_despesas}/to({id_mes})")
-	public Response cobrancasDasDespesasTo(@PathParam("ids_despesa") String ids, @PathParam("id_mes")long idMesTo) throws JsonGenerationException, JsonMappingException, IOException{
+	public Response cobrancasDasDespesasTo(@PathParam("ids_despesas") String ids, @PathParam("id_mes")long idMesTo) throws JsonGenerationException, JsonMappingException, IOException{
 		RelatorioCobrancaParametro parametro = new RelatorioCobrancaParametro();
 		parametro.setIds(ids);
 		parametro.id_mes_fim = idMesTo;
