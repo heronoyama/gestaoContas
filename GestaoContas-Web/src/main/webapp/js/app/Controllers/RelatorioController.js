@@ -21,10 +21,16 @@ define(['knockout',
 		self.mesFim = ko.observable();
 
 		self.total = ko.observable();
+		
+		self.mensagemErro = ko.observable(null);
+		self.hasError = ko.computed(function(){
+			return self.mensagemErro() != null;
+		});
 
 		self.buscaCobrancas = function(formElement){
 			self.cobrancas([]);
 			self.total(null);
+			self.mensagemErro(null);
 
 			var ids = $.map(self.despesasSelecionadas(),function(item){return item.id();});
 			
@@ -33,7 +39,8 @@ define(['knockout',
 			data.mesInicio = self.mesInicio();
 			data.mesFim = self.mesFim();
 
-			new GatewayHelper(data,self.updateCobrancas).getCobrancas();
+			var mensagem = new GatewayHelper(data,self.updateCobrancas).getCobrancas();
+			self.mensagemErro(mensagem);
 
 			self.despesasSelecionadas([]);
 			self.mesInicio(null);
@@ -75,6 +82,7 @@ define(['knockout',
 				return self.getCobrancasDosMeses();
 			if(self.possuiApenasMesInicio())
 				return self.getCobrancasDoMesInicio();
+			return "Selecione Mês Inicio e Mês Fim, ou apenas Mês Inicio. Nunca apenas mês fim";
 		};
 
 		self.getCobrancasComDespesas = function(){
@@ -84,6 +92,7 @@ define(['knockout',
 				return self.getCobrancasDoMesComDespesa();
 			if(self.possuiNenhumMes())
 				return self.getCobrancasApenasByDespesa();
+			return "Selecione Mês Inicio e Mês Fim, ou apenas Mês Inicio. Nunca apenas mês fim";
 		};
 
 		self.possuiApenasMesInicio = function(){
@@ -99,23 +108,32 @@ define(['knockout',
 		};
 
 		self.getCobrancasDosMeses = function(){
+			if(!self.mesInicio.isBefore(self.mesFim))
+				return "Mês inicio deve ser antes de Mês Fim";
 			Gateway.getCobrancasByMesInicioEFim(self.mesInicio.id(),self.mesFim.id(),self.callback);
+			return null;
 		};
 
 		self.getCobrancasApenasByDespesa = function(){
 			Gateway.getCobrancasByDespesa(self.ids.join(','),self.callback);
+			return null;
 		};
 
 		self.getCobrancasDoMesComDespesa = function(){
 			Gateway.getCobrancasByDespesasComMes(self.ids,self.mesInicio.id(),self.callback);
+			return null;
 		};
 
 		self.getCobrancasCompleto = function(){
+			if(!self.mesInicio.isBefore(self.mesFim))
+				return "Mês inicio deve ser antes de Mês Fim";
 			Gateway.getCobrancasByDespesaMesInicioEFim(self.ids,self.mesInicio.id(),self.mesFim.id(),self.callback);
+			return null;
 		};
 
 		self.getCobrancasDoMesInicio = function(){
 			Gateway.getCobrancasByMes(self.mesInicio.id(),self.callback);
+			return null;
 		};
 	};
 

@@ -1,5 +1,7 @@
 <section id="RelatorioView">
-	<h1> Olá, sou a página de relatórios </h1>
+
+	<div data-bind="component: {name : 'mensagem', params:{ shouldShow : hasError(), mensagem: mensagemErro()}}">
+	</div>
 
 	<div data-bind="component: {name : 'cobranca-table', params: {title : 'Relatório de cobranças', total: total, cobrancas:cobrancas}}">
 </div>

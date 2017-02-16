@@ -6,6 +6,11 @@ require(['knockout','sammy','app/pageControl/HeaderViewModel'],
 	    template: {require: 'text!gadgets/templates/cobrancaTable.html'}
 	});
 
+	ko.components.register('mensagem', {
+	    viewModel: {require: 'gadgets/models/Mensagem'},
+	    template: {require: 'text!gadgets/templates/mensagem.html'}
+	});
+
 	var headerModel  = new HeaderViewModel();
 	ko.applyBindings(headerModel,getElement('headerController'));
 

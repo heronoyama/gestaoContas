@@ -9,5 +9,13 @@ define(['knockout'],function(ko){
 			return self.mes()+"/"+self.ano();
 		});
 
+		self.isBefore = function(outroMes){
+			if(self.ano() < outroMes.ano())
+				return true;
+			if(self.ano() > outroMes.ano())
+				return false;
+			return self.mes() < outroMes.mes();
+		};
+
 	}
 });
