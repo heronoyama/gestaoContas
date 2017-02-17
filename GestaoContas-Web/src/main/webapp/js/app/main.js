@@ -16,6 +16,11 @@ require(['knockout','sammy','app/pageControl/HeaderViewModel'],
 	    template: {require: 'text!gadgets/templates/pie.html'}
 	});
 
+	ko.components.register('line-chart', {
+	    viewModel: {require: 'gadgets/models/LineChart'},
+	    template: {require: 'text!gadgets/templates/line.html'}
+	});
+
 	var headerModel  = new HeaderViewModel();
 	ko.applyBindings(headerModel,getElement('headerController'));
 

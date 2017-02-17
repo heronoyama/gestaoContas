@@ -1,12 +1,8 @@
 <section id="CobrancaForm">
 <div class="row">
 <div class="col-md-12">
-	<!--form role="form" method='post' data-bind='submit: geraCobranca'-->
 			<div class="form-group col-md-2">
 				<label> Despesa </label>
-				<!--select name="mesCobranca" data-bind="foreach: mesesDisponiveis">
-		    		<option data-bind="value: id, text:dataFormatada, "></option>
-		    	</select-->
 		    	<select data-bind="options: despesasDisponiveis, 
 		    			optionsText: 'nome',
 		    			value: despesaSelecionada,
@@ -17,7 +13,6 @@
 				<input type='text' pattern='\d+(\.)\d{2}' data-bind="value: valor"/>
 		    </div>
 		    <button class="btn btn-default" data-bind="click: geraCobranca"> Criar </button>
-		<!--/form-->
 </div>
 </div>
 </section>
@@ -27,6 +22,5 @@
 <section id="CobrancaView"></section>
 
 
-<div data-bind="component: {name : 'pie-chart', params: {cobrancas: cobrancas}}">
-</div>
+<div data-bind="component: {name : 'pie-chart', params: {cobrancas: cobrancas}}"></div>
 </section>
