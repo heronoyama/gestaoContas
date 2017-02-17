@@ -1,4 +1,4 @@
-define(['knockout','components/EstrategiaBuscaCobranca'],function(ko,EstrategiaBuscaCobranca){ 
+define(['knockout','components/EstrategiaBuscaCobranca','chart'],function(ko,EstrategiaBuscaCobranca,chart){ 
 	//TODO após renomear ListController para SimpleController, fazer ele extender
 	var MainController = {}
 
@@ -17,7 +17,6 @@ define(['knockout','components/EstrategiaBuscaCobranca'],function(ko,EstrategiaB
 					self.total(allData.total);
 					self.cobrancas(allData.cobrancas);
 				});
-
 		};
 
 	MainController.load = function(element,templateLocation,htmlSection,model){

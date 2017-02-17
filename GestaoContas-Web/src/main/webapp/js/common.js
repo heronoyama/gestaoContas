@@ -9,6 +9,7 @@ requirejs.config({
         metsMenu: 'jquery.metisMenu',
         knockout: 'knockout-3.3.0',
         sammy: 'sammy',
+        chart: 'Chart',
         utils: '../utils',
         components: '../app/Components',
         navigator:'../navigator',

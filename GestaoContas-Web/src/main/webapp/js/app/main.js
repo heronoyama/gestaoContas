@@ -11,6 +11,11 @@ require(['knockout','sammy','app/pageControl/HeaderViewModel'],
 	    template: {require: 'text!gadgets/templates/mensagem.html'}
 	});
 
+	ko.components.register('pie-chart', {
+	    viewModel: {require: 'gadgets/models/PieChart'},
+	    template: {require: 'text!gadgets/templates/pie.html'}
+	});
+
 	var headerModel  = new HeaderViewModel();
 	ko.applyBindings(headerModel,getElement('headerController'));
 
