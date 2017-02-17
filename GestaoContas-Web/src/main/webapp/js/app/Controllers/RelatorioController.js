@@ -24,7 +24,7 @@ define(['knockout',
 
 		self.link = ko.observable(null);
 		self.showLink = ko.computed(function(){
-			return self.link() != null;
+			return self.link() != null && !self.hasError();
 		});
 		
 		self.mensagemErro = ko.observable(null);
@@ -63,8 +63,13 @@ define(['knockout',
 		};
 
 		self.updateCobrancas = function(cobrancas){
+			if(cobrancas.cobrancas.length == 0){
+				self.mensagemErro("Não foram encontradas cobranças para essas condições");
+				return;
+			}
 			self.total(cobrancas.total);
 			self.cobrancas(cobrancas.cobrancas);
+
 		};
 
 		Gateway.getDespesasMapeadas(function(despesas){

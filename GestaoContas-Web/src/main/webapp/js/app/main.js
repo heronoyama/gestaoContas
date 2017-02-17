@@ -21,6 +21,11 @@ require(['knockout','sammy','app/pageControl/HeaderViewModel'],
 	    template: {require: 'text!gadgets/templates/line.html'}
 	});
 
+	ko.components.register('bars-chart', {
+	    viewModel: {require: 'gadgets/models/BarsChart'},
+	    template: {require: 'text!gadgets/templates/bars.html'}
+	});
+
 	var headerModel  = new HeaderViewModel();
 	ko.applyBindings(headerModel,getElement('headerController'));
 

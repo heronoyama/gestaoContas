@@ -5,11 +5,11 @@
 
 	<div data-bind="component: {name : 'cobranca-table', params: {title : 'Relatório de cobranças', total: total, cobrancas:cobrancas}}">
 </div>
-
 	<div class="row">
 	<div class="col-md-6">
 	<div class="panel-body" data-bind="if: showLink">
 		<a target="_blank" data-bind="attr: { href: link }">Download as csv</a>
+		<div data-bind="component: {name : 'bars-chart', params: {cobrancas: cobrancas}}"></div>
 	</div>
 
 	<div role="form">
