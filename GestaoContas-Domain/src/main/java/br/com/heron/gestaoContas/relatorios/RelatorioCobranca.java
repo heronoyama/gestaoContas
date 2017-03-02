@@ -2,16 +2,23 @@ package br.com.heron.gestaoContas.relatorios;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import com.google.common.base.Joiner;
+
 import br.com.heron.gestaoContas.models.Cobranca;
+import br.com.heron.gestaoContas.models.DespesaRecorrente;
+import br.com.heron.gestaoContas.models.MesCobranca;
+import br.com.heron.gestaoContas.relatorios.utils.ExporterHelper;
 
 public class RelatorioCobranca {
 	
@@ -57,7 +64,33 @@ public class RelatorioCobranca {
 		}
 		
 		return builder.toString();
-	};
+	}
+	
+	public String getCSVExport(){
+		StringBuilder builder = new StringBuilder();
+		
+		String lineSeparator = System.lineSeparator();
+		builder.append("Mês;Despesa"+lineSeparator);
+		
+		ExporterHelper helper = new ExporterHelper(cobrancas);
+			
+		builder.append(";"+helper.getDespesas().stream().map(i -> i.nome()).collect(Collectors.joining(";")));
+		builder.append(lineSeparator);
+		
+		
+		for (MesCobranca mes : helper.getMeses()) {
+			List<String> valores = new LinkedList<>();
+			builder.append(mes.toString());
+			builder.append(";");
+			for (DespesaRecorrente despesa : helper.getDespesas()) {
+				valores.add(String.format(Locale.US, "%.2f",helper.getValor(despesa, mes)));
+			}
+			builder.append(Joiner.on(";").join(valores));
+			builder.append(lineSeparator);
+		}
+		
+		return builder.toString();
+	}
 
 	private List<Map<String, Object>> getCobrancasMap() {
 		List<Map<String,Object>> cobrancasMap = new ArrayList<>();

@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.javalite.activejdbc.annotations.Table;
 
+import com.google.api.client.repackaged.com.google.common.base.Objects;
+
 import br.com.heron.gestaoContas.finders.MesCobrancaFinderSqlBuilder;
 
 @Table("meses_cobranca")
@@ -51,6 +53,24 @@ public class MesCobranca extends GestaoContasModel implements Comparable<MesCobr
 	@Override
 	public String toString() {
 		return String.format("%d/%d", getInteger("mes"),getInteger("ano"));
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(this == obj)
+			return true;
+		
+		if(!(obj instanceof MesCobranca))
+			return false;
+		
+		MesCobranca cObj = (MesCobranca) obj;
+		return mes().equals(cObj.mes()) && ano().equals(cObj.ano());
+					
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(mes(),ano());
 	}
 
 	//Equivalente à >

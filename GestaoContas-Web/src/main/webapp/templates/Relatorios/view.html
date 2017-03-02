@@ -9,6 +9,7 @@
 	<div class="col-md-6">
 	<div class="panel-body" data-bind="if: showLink">
 		<a target="_blank" data-bind="attr: { href: link }">Download as csv</a>
+		<a target="_blank" data-bind="attr: { href: linkExport }">Export to csv</a>
 		<div data-bind="component: {name : 'bars-chart', params: {cobrancas: cobrancas}}"></div>
 	</div>
 

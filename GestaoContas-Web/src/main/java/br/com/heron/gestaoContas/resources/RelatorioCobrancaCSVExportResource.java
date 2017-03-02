@@ -20,24 +20,23 @@ import br.com.heron.gestaoContas.controllers.RelatorioCobrancaController;
 import br.com.heron.gestaoContas.controllers.dtos.RelatorioCobrancaParametro;
 import br.com.heron.gestaoContas.resources.utils.CSVWriter;
 
-@Path("/relatorios/csv/cobranca")
+@Path("/relatorios/csv/cobranca/export")
 @Produces(MediaType.TEXT_PLAIN)
 @Consumes(APPLICATION_JSON)
-public class RelatorioCobrancaCSVResource extends RelatorioCobrancaResource{
-
+public class RelatorioCobrancaCSVExportResource extends RelatorioCobrancaResource{
+	
 	@Inject
 	private RelatorioCobrancaController controller;
 	
 	@Override
 	protected Response buildResponse(RelatorioCobrancaParametro parametro)	throws JsonGenerationException, JsonMappingException, IOException {
 		
-		CSVWriter writer = new CSVWriter(controller.getRelatorioCSV(parametro));
+		CSVWriter writer = new CSVWriter(controller.getRelatorioCSVToExport(parametro));
 		
 		ResponseBuilder response = Response.ok(writer);
 		response.header("Content-Disposition", "attachment; filename=report.csv");
 		return response.build();
 	}
 	
-	
-	
+
 }

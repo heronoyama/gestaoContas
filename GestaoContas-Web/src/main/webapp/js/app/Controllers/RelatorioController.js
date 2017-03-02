@@ -23,6 +23,7 @@ define(['knockout',
 		self.total = ko.observable();
 
 		self.link = ko.observable(null);
+		self.linkExport = ko.observable(null);
 		self.showLink = ko.computed(function(){
 			return self.link() != null && !self.hasError();
 		});
@@ -50,7 +51,11 @@ define(['knockout',
 			try{
 				var link = helper.getCobrancas();
 				//TODO seriously?
-				self.link("http://localhost:8181/gestaoContas-web/"+link);
+				var finalLink = "http://"+location.host+"/gestaoContas-web/"+link;
+				self.link(finalLink);
+
+				//TODO fucking seriously? you rly insist?
+				self.linkExport(finalLink.replace("cobranca","cobranca/export"));
 			} catch(err) {
 				self.mensagemErro(err);
 			}

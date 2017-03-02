@@ -106,5 +106,23 @@ public class RelatorioCobrancaTest extends BDTest{
 		
 		assertEquals(expected,csv);		
 	}
+	
+	@Test
+	public void getCSVExport_umaCobranca(){
+		despesa.geraCobranca(mes, 21.00);
+		
+		RelatorioCobrancaCondicao condicao = new RelatorioCobrancaCondicaoBuilder().addDespesa(despesa).build();
+		
+		RelatorioCobranca relatorio = new RelatorioCobranca(condicao);
+		String csv = relatorio.getCSVExport();
+		
+		String expected =
+				"Mês;Despesa"+lineSeparator+
+				";teste"+lineSeparator+
+				"3/2016;21.00"+lineSeparator;
+		
+		assertEquals(expected,csv);		
+	}
+
 
 }

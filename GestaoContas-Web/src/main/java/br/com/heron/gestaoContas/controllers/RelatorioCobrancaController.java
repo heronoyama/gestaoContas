@@ -33,6 +33,11 @@ public class RelatorioCobrancaController {
 		RelatorioCobranca relatorio = getRelatorio(parametro);
 		return relatorio.getCSV();
 	}
+	
+	public String getRelatorioCSVToExport(RelatorioCobrancaParametro parametro){
+		RelatorioCobranca relatorio = getRelatorio(parametro);
+		return relatorio.getCSVExport();
+	}
 
 	private RelatorioCobranca getRelatorio(RelatorioCobrancaParametro parametro) {
 		RelatorioCobrancaCondicaoBuilder builder = new RelatorioCobrancaCondicaoBuilder();
