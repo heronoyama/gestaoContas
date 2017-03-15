@@ -4,14 +4,16 @@ define(['knockout','app/pageControl/ListPage','app/pageControl/StaticPage','app/
 	'controllers/DespesasRecorrentesViewController',
 	'controllers/MesesCobrancaListController',
 	'controllers/MesCobrancaViewController',
-	'controllers/RelatorioController'],
+	'controllers/RelatorioController',
+	'components/Autenticacao'],
 	function(ko,ListPage,StaticPage,ViewPage,
 	MainController,
 	DespesasRecorrentesListController,
 	DespesasRecorrentesViewController,
 	MesesCobrancaListController,
 	MesCobrancaViewController,
-	RelatorioController ){
+	RelatorioController,
+	Autenticacao ){
  return function HeaderViewModel(){
 	var self = this;
 
@@ -45,6 +47,18 @@ define(['knockout','app/pageControl/ListPage','app/pageControl/StaticPage','app/
 		 pageToLoad = getPage(page,view);
 		 pageToLoad.load('#content',id);
 	};
+
+	self.showPages = ko.computed(function(){
+		return Autenticacao.isAuthenticated();
+	});
+
+	self.login = function(){
+		Autenticacao.login();
+	}
+
+	self.logout = function(){
+		Autenticacao.logout();
+	}
 
 	function getPage (page, view){
 		var pagesToLoad  = $.grep(self.pages(), function(element){

@@ -26,5 +26,7 @@ public class BDTest {
 		Base.exec("ALTER TABLE meses_cobranca AUTO_INCREMENT = 1");
 		Base.exec("DELETE FROM cobrancas");
 		Base.exec("ALTER TABLE cobrancas AUTO_INCREMENT = 1");
+		Base.exec("DELETE FROM user");
+		Base.exec("ALTER TABLE user AUTO_INCREMENT = 1");
 	}
 }

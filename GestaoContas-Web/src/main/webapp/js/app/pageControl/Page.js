@@ -1,4 +1,4 @@
-define(['knockout','utils'],function(ko,utils){
+define(['knockout','utils','components/Autenticacao'],function(ko,utils,Autenticacao){
 	return function Page(data){
 		var self = this;
 		self.page = data.page;
@@ -14,6 +14,8 @@ define(['knockout','utils'],function(ko,utils){
 		self.isMenuVisible = function(){ return true;}
 
 		self.load = function(){};
+
+		self.showContent = ko.computed(function(){ return Autenticacao.isAuthenticated();});
 
 	};
 });
